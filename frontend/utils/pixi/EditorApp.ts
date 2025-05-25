@@ -1115,7 +1115,9 @@ export class EditorApp extends App {
     }
 
     private setUpBeforeUnload = () => {
-        window.addEventListener('beforeunload', this.onBeforeUnload)
+        if (typeof window !== 'undefined') {
+            window.addEventListener('beforeunload', this.onBeforeUnload)
+        }
     }
 
     private generateUniqueRoomName(rooms: Room[]): string {
@@ -1245,7 +1247,10 @@ export class EditorApp extends App {
         signal.off('selectPalette', this.onSelectPalette)
         signal.off('undo', this.undo)
         signal.off('redo', this.redo)
-        window.removeEventListener('beforeunload', this.onBeforeUnload)
+       
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('beforeunload', this.onBeforeUnload)
+        }
 
         super.destroy()
     }
